@@ -13,6 +13,7 @@
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -24,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.activityIndicator startAnimating];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -60,10 +63,12 @@
                
 //               reloads table after movie info fetched
                [self.tableView reloadData];
+               [self.activityIndicator stopAnimating];
                
            }
 //        resets the refresh circle
         [self.refreshControl endRefreshing];
+        
        }];
     [task resume];
 }
