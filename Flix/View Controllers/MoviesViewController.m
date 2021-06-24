@@ -47,7 +47,26 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
+               NSLog(@"network error");
+               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot Load Data"
+                                                                                          message:@"The internet connection appears to be offline."
+                                                                                   preferredStyle:(UIAlertControllerStyleAlert)];
+               // create a try again action
+               UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                                        style:UIAlertActionStyleDefault
+                                                                                                                         handler:^(UIAlertAction * _Nonnull action) {
+                   [self fetchMovies];
+                   
+               }];
+               
+               // add the try again action to the alertController
+               [alert addAction:tryAgainAction];
+               
+               // shows connection error
+               [self presentViewController:alert animated:YES completion:^{
+                   // optional code for what happens after the alert controller has finished presenting
+               }];
+               
            }
            else {
 //               store all data
@@ -60,6 +79,7 @@
                for (NSDictionary *movie in self.movies) {
                    NSLog(@"%@", movie[@"title"]);
                }
+               
                
 //               reloads table after movie info fetched
                [self.tableView reloadData];
