@@ -5,6 +5,18 @@
 //  Created by Elisa Jacobo Arill on 6/23/21.
 //
 
+// Light Mode HEX:
+// Background: DCFBFC
+// Synopsis Label: 98C1D9
+// Main Text: 000000
+// Other Text: 555555
+
+// Dark Mode HEX:
+// Background: 121228
+// Synopsis Label: 1F0566
+// Main Text: FFFFFF
+// Other Text: AAAAAA
+
 #import "MoviesViewController.h"
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"

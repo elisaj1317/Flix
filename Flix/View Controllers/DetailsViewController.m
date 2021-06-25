@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
+@property (weak, nonatomic) IBOutlet UIView *synopsisView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
@@ -44,8 +45,15 @@
     self.dateLabel.text = self.movie[@"release_date"];
     self.title = self.movie[@"title"];
     
-    [self.titleLabel sizeToFit];
+//    [self.titleLabel sizeToFit];
     [self.synopsisLabel sizeToFit];
+    
+    // Change size of view to be bigger than label
+    CGRect newFrame = self.synopsisView.frame;
+
+    newFrame.size.width = self.synopsisLabel.frame.size.width + 20;
+    newFrame.size.height = self.synopsisLabel.frame.size.height + 20 + 25;
+    [self.synopsisView setFrame:newFrame];
 }
 
 /*
