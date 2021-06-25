@@ -124,7 +124,7 @@
         
     NSURLRequest *request = [NSURLRequest requestWithURL:posterURL];
 
-    [cell.posterView setImageWithURLRequest:request placeholderImage:nil
+    [cell.posterView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"movie_placeholder"]
                                     success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
                                         
                                         // imageResponse will be nil if the image is cached

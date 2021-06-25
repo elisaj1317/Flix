@@ -24,21 +24,83 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"details view is loading");
     
     // set up poster image
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = self.movie[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
     
+    self.posterView.image = nil;
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
-    [self.posterView setImageWithURL:posterURL];
+        
+    NSURLRequest *request = [NSURLRequest requestWithURL:posterURL];
+
+    [self.posterView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"movie_placeholder"]
+                                    success:^(NSURLRequest *imageRequest, NSHTTPURLResponse *imageResponse, UIImage *image) {
+                                        
+                                        // imageResponse will be nil if the image is cached
+                                        if (imageResponse) {
+                                            NSLog(@"Image was NOT cached, fade in image");
+                                            self.posterView.alpha = 0.0;
+                                            self.posterView.image = image;
+                                            
+                                            //Animate UIImageView back to alpha 1 over 0.5sec
+                                            [UIView animateWithDuration:0.5 animations:^{
+                                                self.posterView.alpha = 1.0;
+                                            }];
+                                        }
+                                        else {
+                                            NSLog(@"Image was cached so just update the image");
+                                            self.posterView.image = image;
+                                        }
+                                    }
+                                    failure:^(NSURLRequest *request, NSHTTPURLResponse * response, NSError *error) {
+                                        // do something for the failure condition
+                                    }];
     
-    // set up backdrop image
-    NSString *backdropURLString = self.movie[@"backdrop_path"];
-    NSString *fullBackdropURLString = [baseURLString stringByAppendingString:backdropURLString];
+    // set up backdrop image low -> high res
+    NSString *smallUrlString = [NSString stringWithFormat:@"https://image.tmdb.org/t/p/w45%@", self.movie[@"backdrop_path"]];
+    NSString *largeUrlString = [NSString stringWithFormat:@"https://image.tmdb.org/t/p/original%@", self.movie[@"backdrop_path"]];
     
-    NSURL *backdropURL = [NSURL URLWithString:fullBackdropURLString];
-    [self.backdropView setImageWithURL:backdropURL];
+    NSURL *urlSmall = [NSURL URLWithString:smallUrlString];
+    NSURL *urlLarge = [NSURL URLWithString:largeUrlString];
+    
+    NSURLRequest *requestSmall = [NSURLRequest requestWithURL:urlSmall];
+    NSURLRequest *requestLarge = [NSURLRequest requestWithURL:urlLarge];
+
+    __weak DetailsViewController *weakSelf = self;
+
+    [self.backdropView setImageWithURLRequest:requestSmall
+                          placeholderImage:[UIImage imageNamed:@"movie_placeholder"]
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *smallImage) {
+                                       
+                                       weakSelf.backdropView.alpha = 0.0;
+                                       weakSelf.backdropView.image = smallImage;
+                                       
+                                       [UIView animateWithDuration:0.3
+                                                        animations:^{
+                                                            
+                                                            weakSelf.backdropView.alpha = 1.0;
+                                           
+                                                            
+                                                        } completion:^(BOOL finished) {
+                                                            [weakSelf.backdropView setImageWithURLRequest:requestLarge
+                                                                                  placeholderImage:smallImage
+                                                                                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage * largeImage) {
+                                                                                                weakSelf.backdropView.image = largeImage;
+                                                                                  }
+                                                                                           failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                                                               // do something for the failure condition of the large image request
+                                                                                               // possibly setting the ImageView's image to a default image
+                                                                                           }];
+                                                        }];
+                                   }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                       // do something for the failure condition
+                                       // possibly try to get the large image
+                                   }];
+    
     
     // set up labels
     self.titleLabel.text = self.movie[@"title"];
