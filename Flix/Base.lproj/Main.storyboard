@@ -50,7 +50,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.86274509803921573" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.78005097450049687" green="0.88599550392927673" blue="0.8943769413023851" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <outlet property="posterView" destination="XJi-8H-Ap1" id="cc6-5a-B6Y"/>
                                             <outlet property="synopsisLabel" destination="QB6-ob-vVW" id="Fir-V2-Cn3"/>
@@ -138,6 +138,17 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="noun_Popcorn_3254255" translatesAutoresizingMaskIntoConstraints="NO" id="CgS-mc-3gO">
+                                        <rect key="frame" x="147" y="302" width="24" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.0 / 10.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TFD-uW-pwi">
+                                        <rect key="frame" x="171" y="306" width="225" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.86274509803921573" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="WJd-iO-w0H"/>
@@ -152,6 +163,7 @@
                         <outlet property="backdropView" destination="u2N-fu-vtN" id="5rU-Ej-Acl"/>
                         <outlet property="dateLabel" destination="R93-zy-4WF" id="7H0-JP-xLM"/>
                         <outlet property="posterView" destination="ICa-Ek-S6Z" id="NvW-Ra-tbH"/>
+                        <outlet property="ratingLabel" destination="TFD-uW-pwi" id="Vxk-h0-hwi"/>
                         <outlet property="synopsisLabel" destination="VWN-Ef-CaJ" id="7WX-zg-yR7"/>
                         <outlet property="synopsisView" destination="7dO-GL-7X1" id="XEt-Jy-DhC"/>
                         <outlet property="titleLabel" destination="pTk-rP-9LW" id="Sfe-Gb-6Ge"/>
@@ -275,6 +287,7 @@
         <segue reference="UAF-JA-9qh"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="noun_Popcorn_3254255" width="700" height="700"/>
         <image name="now_playing_tabbar_item" width="21" height="21"/>
         <image name="projector_tabbar_item" width="21" height="25"/>
         <systemColor name="systemBackgroundColor">

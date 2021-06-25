@@ -124,6 +124,22 @@
     
     [cell.posterView setImageWithURL:posterURL];
     
+    // initializes background color
+    cell.backgroundColor = [UIColor
+                           colorWithRed: 220.0 / 255.0
+                           green: 251.0 / 255.0
+                           blue: 252.0/ 255.0
+                           alpha: 1.0];
+    
+    // sets highlighted state for cells
+    UIView *backgroundView = [[UIView alloc] init];
+    backgroundView.backgroundColor = [UIColor
+                                      colorWithRed: 199.0 / 255.0
+                                      green: 226.0 / 255.0
+                                      blue: 228.0/ 255.0
+                                      alpha: 1.0];
+    cell.selectedBackgroundView = backgroundView;
+    
     
     return cell;
 }

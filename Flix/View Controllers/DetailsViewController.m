@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
 @property (weak, nonatomic) IBOutlet UIView *synopsisView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
 @end
 
@@ -43,6 +44,10 @@
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"overview"];
     self.dateLabel.text = self.movie[@"release_date"];
+    
+    NSString *rating = self.movie[@"vote_average"];
+    double dec_rating = [rating doubleValue];
+    self.ratingLabel.text = [NSString stringWithFormat:@"%0.1f / 10.0", dec_rating];
     self.title = self.movie[@"title"];
     
 //    [self.titleLabel sizeToFit];
